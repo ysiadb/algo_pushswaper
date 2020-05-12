@@ -12,11 +12,11 @@ sort($lb);
 print_r($lb);
 
 
-if($lb > 1)
-{
-    switch($lb)
-    {
-        case "sa" : sort($lb[1], $lb[2]);
-    }
-}
+// if($lb > 1)
+// {
+//     switch($lb)
+//     {
+//         case "sa" : sort($lb[1], $lb[2]);
+//     }
+// }
   
