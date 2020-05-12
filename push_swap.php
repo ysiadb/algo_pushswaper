@@ -19,6 +19,4 @@ if($lb > 1)
         case "sa" : sort($lb[1], $lb[2]);
     }
 }
-
-//TEST POO
-?>
+  
