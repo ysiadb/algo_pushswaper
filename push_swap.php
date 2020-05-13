@@ -5,11 +5,11 @@
 // var_dump($argv[1]);
 
 
-$la = $argv[1];
+// $la = $argv[1];
 
-$lb = str_split($la);
-sort($lb);
-print_r($lb);
+// $lb = str_split($la);
+// sort($lb);
+// print_r($lb);
 
 
 // if($lb > 1)
@@ -19,10 +19,28 @@ print_r($lb);
 //         case "sa" : sort($lb[1], $lb[2]);
 //     }
 // }
-  
 
-for($i=1; $i>1; $i++)
-{
 
-    print_r($i);
+foreach ($argv as $key => $value) {
+
+    // echo "[$key] -> $value" . PHP_EOL; 
+
+    for ($key; $key >= 1; $key++) 
+    { 
+        echo "[$key] -> $value" . PHP_EOL;
+
+        // if($key > 0)
+        // {
+        //     $key++;
+        //     print_r($key);
+        // }
+
+        // $key++;
+        // echo $key;
+
+        break;
+    }
+    // echo $value . PHP_EOL;
 }
+
+// var_dump($i);
