@@ -1,84 +1,144 @@
 <?php
 
-//TEST PROCEDURAL
+// $la = [];
+// $lb = [];
 
-// var_dump($argv[1]);
+// foreach ($argv as $key => $value) {
 
+//     for ($key; $key >= 1; $key++) 
+//     { 
+//         echo "[$key] -> $value" . PHP_EOL;
 
-// $la = $argv[1];
-
-// $lb = str_split($la);
-// sort($lb);
-// print_r($lb);
-
-
-// if($lb > 1)
-// {
-//     switch($lb)
-//     {
-//         case "sa" : sort($lb[1], $lb[2]);
+//         break;
 //     }
 // }
-// echo "ceci est mon argv" . print_r($argv) . PHP_EOL;
 
-$la = [];
-$lb = [];
+$la = $argv;
+array_shift($la);
 
-foreach ($argv as $key => $value) {
+$lb = array();
+$output = "";
 
-    // echo "[$key] -> $value" . PHP_EOL; 
+//BOITE A OUTILS // 
 
-    for ($key; $key >= 1; $key++) 
-    { 
-        echo "[$key] -> $value" . PHP_EOL;
-        
-        // if($key > 0)
-        // {
-            //     $key++;
-            //     print_r($key);
-            // }
-            
-            // $key++;
-            // echo $key;
-            
-        break;
-    }
-    
-    
+//PUSH
+function pa(&$la, &$lb, &$output)
+{
+    // var_dump($lb);
+    array_unshift($la, array_shift($lb));
+    // var_dump($lb);
+    $output .= " pa";
 }
 
-if (count($la) > 1)
+function pb(&$lb, &$la, &$output)
 {
-    $count = count($la);
-    if($la === sort($lb))
+    array_unshift($lb, array_shift($la));
+    $output .= " pb";
+}
+
+
+// SWAP
+
+function sa(&$la, &$output)
+{
+    $un_a = $la[0];
+    $la[0] = $la[1];
+    $la[1] = $un_a;
+    $output .= " sa";
+}
+
+function sb(&$lb, &$output)
+{
+    $un_b = $lb[0];
+    $lb[0] = $lb[1];
+    $lb[1] = $un_b;
+    $output .= " sb";
+}
+
+// ROTATE
+
+function ra(&$la, &$output)
+{
+    array_push($la, array_shift($la));
+    $output .= " ra";
+}
+
+function rb(&$lb, &$output)
+{
+    array_push($lb, array_shift($lb));
+    $output .= " rb";
+}
+
+function rr(&$la, &$lb, &$output)
+{
+    ra($la, $output);
+    rb($lb, $output);
+    $output .= "rr";
+}
+
+function rra(&$la, &$output)
+{
+    array_unshift($la, array_pop($la));
+    $output .= " rra";
+}
+
+function rrb(&$lb, &$output)
+{
+    array_unshift($la, array_pop($lb));
+    $output .= " rrb";
+}
+
+
+function rrr(&$la, &$lb, &$output)
+{
+    rra($la, $output);
+    rrb($lb, $output);
+    $output .= " rrr";
+}
+
+//TRI
+
+function sorting_process(&$la, &$lb, &$output)
+{
+    if (count($la) == 1) {
+        echo PHP_EOL;
+    } 
+    else
     {
-        push();
-    }
-}
+        $trie_la = $la;
+        $trie_lb = $lb;
 
+        while ($la !== sort($trie_la)) 
+        {
+            $smaller = min($la);
+            $search_smaller = array_search($smaller, $la);
+            $taille_la = count($la);
 
+            if ($la[0] !== $smaller) 
+            {
+                if ($smaller < $la[0]) {
+                    rra($la, $output);
+                } 
+                else 
+                {
+                    ra($la, $output);
+                }
+            } 
 
-function push()
-{
-
-}
-
-
-function swap()
-{
-
-}
-
-function rotate()
-{
+            else 
+            {
+                pb($lb, $la, $output);
+            }
+            
+            while ($lb !== sort($trie_lb)) {
+                pa($la, $lb, $output);
+            }
+        }
+        
     
+    }
+    echo trim($output) . PHP_EOL;
 }
 
-// $newtable = array_fill(1,$key,$value);
-// var_dump($newtable);
-//     sort($newtable);
-    // print_r($newtable);
 
-
-// echo $value . PHP_EOL;
-// var_dump($i);
+sorting_process($la, $lb, $output);
